@@ -1,1 +1,8 @@
-<h1>{{this.name}}</h1>
+{{#each results2.body.items}}
+    <div>
+        <h2>{{this.name}}</h2>
+        {{!-- <p>{{this.id}}</p> --}}
+        <img src="{{this.images.0.url}}" alt="{{this.name}}">
+        {{!-- <button ><a href="/albums/{{this.id}}">See Albums</a></button> --}}
+    </div>
+{{/each}}
