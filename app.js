@@ -28,17 +28,6 @@ const spotifyApi = new SpotifyWebApi({
 // Our routes go here:
 app.get("/home", (req, res) => {
     res.render("home");
-    spotifyApi
-    .searchArtists(req) ////
-    .then(function(data) {
-        //console.log('The received data from the API: ', data.body);
-        // ----> 'HERE'S WHAT WE WANT TO DO AFTER RECEIVING THE DATA FROM THE API'
-        //res.send(`this is the artist ${artist}`)
-        res.render("artist-search", data)
-    }, function(err){
-        console.error(err);
-    })
-    .catch(err => console.log('The error while searching artists occurred: ', err));
 })
 
 app.get("/artist-search", (req, res) => {
@@ -66,6 +55,12 @@ app.get("/albums/:artistId", (req, res) => {
         console.log("ACA ESTOY",results2.body.items[0].name)
     })
     .catch((error)=> console.log(error))
+})
+
+app.get("/tracks/:albumId", (req,res)=>{
+    const albumId = req.params.albumId;
+    spotifyApi.getAlbumTracks()
+
 })
 
 
