@@ -1,11 +1,11 @@
 {{#each arrayOfTracks}}
-    <div>
-        <h2>{{this.name}}</h2>
-        <img src="{{this.images.1.url}}" alt="{{this.name}}">
-        {{#if this.preview_url}}
-        <audio controls src="{{this.preview_url}}"></audio>
-        {{else}}
-        <p>No preview</p>
-        {{/if}}
-    </div>
+<div>
+    <h2>{{this.name}}</h2>
+    <img src="{{this.images.1.url}}" alt="{{this.name}}">
+    {{#if this.preview_url}}
+    <audio controls src="{{this.preview_url}}"></audio>
+    {{else}}
+    <p>No preview</p>
+    {{/if}}
+</div>
 {{/each}}

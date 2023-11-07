@@ -13,15 +13,15 @@ app.set('views', __dirname + '/views');
 app.use(express.static(__dirname + '/public'));
 
 // setting the spotify-api goes here:
-const CLIENT_ID= process.env.MONGO_URI
-const CLIENT_SECRET= process.env.MONGO_URI
+const CLIENT_ID = process.env.MONGO_URI
+const CLIENT_SECRET = process.env.MONGO_URI
 const spotifyApi = new SpotifyWebApi({
     clientId: process.env.CLIENT_ID,
     clientSecret: process.env.CLIENT_SECRET
-  });
-  
-  // Retrieve an access token
-  spotifyApi
+});
+
+// Retrieve an access token
+spotifyApi
     .clientCredentialsGrant()
     .then(data => spotifyApi.setAccessToken(data.body['access_token']))
     .catch(error => console.log('Something went wrong when retrieving an access token', error));
@@ -35,29 +35,29 @@ app.get("/artist-search", (req, res) => {
     const artist = req.query.searchArtist;
     //console.log("console log de artist:", artist);
     spotifyApi
-    .searchArtists(artist)
-    .then((result)=>{
-        //console.log("ESTE ES EL RESULT ",result)
-        //console.log("esto sale!", result.body.artists)
-        const artistas = result.body.artists.items;
-        //console.log("console log de {artistas}",{artistas})
-        res.render("artist-search", {artistas});
-    })
-    .catch((error)=> console.log(error))
+        .searchArtists(artist)
+        .then((result) => {
+            //console.log("ESTE ES EL RESULT ",result)
+            //console.log("esto sale!", result.body.artists)
+            const artistas = result.body.artists.items;
+            //console.log("console log de {artistas}",{artistas})
+            res.render("artist-search", { artistas });
+        })
+        .catch((error) => console.log(error))
 })
 
 app.get("/albums/:artistId", (req, res) => {
     const id = req.params.artistId;
-    spotifyApi.getArtistAlbums(id) 
-    .then((results2)=>{
-        //console.log("estos son los Albums",results2.body)
-        res.render("albums",{results2});
-        console.log("ACA ESTOY",results2.body.items[0].name)
-    })
-    .catch((error)=> console.log(error))
+    spotifyApi.getArtistAlbums(id)
+        .then((results2) => {
+            //console.log("estos son los Albums",results2.body)
+            res.render("albums", { results2 });
+            console.log("ACA ESTOY", results2.body.items[0].name)
+        })
+        .catch((error) => console.log(error))
 })
 
-app.get("/tracks/:albumId", (req,res)=>{
+app.get("/tracks/:albumId", (req, res) => {
     const albumId = req.params.albumId;
     spotifyApi.getAlbumTracks()
 
